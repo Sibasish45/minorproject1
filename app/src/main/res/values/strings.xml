@@ -1,0 +1,56 @@
+<resources>
+    <string name="app_name">FinBot</string>
+    <string name="welcome_user">Welcome, User</string>
+    <string name="logout">Logout</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="dont_have_account">Already have an account? Login</string>
+    <string name="already_have_account_login">Don\'t have an account? Sign up</string>
+
+    <string name="welcome_message">Welcome to FinBot</string>
+
+    <string name="login">Login</string>
+    <string name="dashboard_greeting">Welcome, %1$s!</string>
+    <string name="ai_chatbot">AI Chatbot</string>
+    <string name="budget_tracker">Budget Tracker</string>
+    <string name="calculator">EMI/SIP/Tax Calculator</string>
+    <string name="vault">Document Vault</string>
+    <string name="income_zero">Income\n₹40000</string>
+    <string name="expenses_zero">Expenses\n₹7000</string>
+    <string name="savings_zero">Savings\n₹0</string>
+    <string name="greeting_text">Welcome, User!</string>
+    <string name="chatbot">AI Chatbot</string>
+    <string name="welcome_user_named">Welcome, %1$s!</string>
+    <string name="amount_hint">Amount</string>
+    <string name="description_hint">Description</string>
+    <string name="add_income">Add Income</string>
+    <string name="add_expense">Add Expense</string>
+    <string name="no_records">No records yet</string>
+
+    <string name="choose_calculator">Choose Calculator</string>
+    <string name="emi_calculator">EMI Calculator</string>
+    <string name="sip_calculator">SIP Calculator</string>
+    <string name="tax_calculator">Tax Calculator</string>
+    <string name="financial_goals">📈 Financial Goals</string>
+
+    <string name="document_vault">Document Vault</string>
+    <string name="emi_result">Monthly EMI: ₹%.2f</string>
+    <string name="emi_invalid_input">Please enter all valid values</string>
+    <string name="send">Send</string>
+    <string name="type_your_message">Type a message</string>
+    <string name="chat_scroll_desc">Chat messages</string>
+    <string name="chat_messages">Chat messages</string>
+    <string name="type_message">Type a message...</string>
+    <string name="send_message">Send Message</string>
+    <string name="add_document">Add Document</string>
+
+
+    <string name="app_tagline">Your Smart Financial Advisor</string>
+    <string name="app_logo">App Logo</string>
+    <string name="loading_text">Loading your financial dashboard...</string>
+    <string name="app_version">Version 1.0.0</string>
+
+    <string name="finbot_logo">FinBot Logo</string>
+
+</resources>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:padding="12dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#FFFFFF"
+    android:elevation="4dp"
+    android:layout_marginBottom="12dp"
+    android:layout_marginHorizontal="8dp">
+
+    <TextView
+        android:id="@+id/goalTitleText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Goal Title"
+        android:textStyle="bold"
+        android:textSize="18sp"
+        android:textColor="#000000" />
+
+    <TextView
+        android:id="@+id/goalAmountText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Saved ₹0 of ₹5000"
+        android:textSize="14sp"
+        android:textColor="#555555"
+        android:layout_marginTop="4dp" />
+
+    <ProgressBar
+        android:id="@+id/goalProgressBar"
+        style="@android:style/Widget.ProgressBar.Horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="12dp"
+        android:max="100"
+        android:progress="0"
+        android:progressTint="#4CAF50"
+        android:layout_marginTop="8dp" />
+</LinearLayout>

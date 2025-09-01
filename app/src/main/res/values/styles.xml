@@ -1,0 +1,12 @@
+<resources>
+    <!-- Existing themes -->
+
+    <style name="SplashTheme" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="android:statusBarColor">@color/splash_background</item>
+        <item name="android:navigationBarColor">@color/splash_background</item>
+        <item name="android:windowLightStatusBar">true</item>
+<!--        <item name="android:windowLightNavigationBar">true</item>-->
+        <!-- Remove the next line; it's not valid -->
+        <!-- <item name="android:windowFullscreen">false</item> -->
+    </style>
+</resources>
