@@ -21,6 +21,7 @@ class HomeActivity : AppCompatActivity() {
 
         val currentUser = auth.currentUser
         val username = currentUser?.email?.substringBefore("@") ?: "User"
+
         welcomeText.text = getString(R.string.welcome_user_named, username)
 
         // ✅ AI Chatbot
