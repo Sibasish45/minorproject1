@@ -40,9 +40,9 @@ class HomeActivity : AppCompatActivity() {
         }
 
         // ✅ Document Vault
-       // findViewById<Button>(R.id.btnVault).setOnClickListener {
-           // startActivity(Intent(this, VaultActivity::class.java))
-       // }
+        // findViewById<Button>(R.id.btnVault).setOnClickListener {
+        // startActivity(Intent(this, VaultActivity::class.java))
+        // }
 
         // ✅ Financial Goals
         findViewById<Button>(R.id.btnGoals).setOnClickListener {
