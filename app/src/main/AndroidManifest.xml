@@ -18,6 +18,9 @@
         android:theme="@style/Theme.LoginSignupApp"
         tools:targetApi="31">
         <activity
+            android:name=".NewsActivity"
+            android:exported="false" />
+        <activity
             android:name=".home2"
             android:exported="false" />
         <activity

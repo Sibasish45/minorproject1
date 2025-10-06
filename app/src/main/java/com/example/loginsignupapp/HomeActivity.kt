@@ -24,41 +24,36 @@ class HomeActivity : AppCompatActivity() {
 
         welcomeText.text = getString(R.string.welcome_user_named, username)
 
-        // ✅ AI Chatbot
         findViewById<Button>(R.id.btnChatbot).setOnClickListener {
             startActivity(Intent(this, ChatbotActivity::class.java))
         }
 
-        // ✅ Budget Tracker
         findViewById<Button>(R.id.btnBudget).setOnClickListener {
             startActivity(Intent(this, BudgetActivity::class.java))
         }
 
-        // ✅ Calculator
         findViewById<Button>(R.id.btnCalculators).setOnClickListener {
             startActivity(Intent(this, CalculatorMenuActivity::class.java))
         }
 
-        // ✅ Document Vault
-        // findViewById<Button>(R.id.btnVault).setOnClickListener {
-        // startActivity(Intent(this, VaultActivity::class.java))
-        // }
-
-        // ✅ Financial Goals
-        findViewById<Button>(R.id.btnGoals).setOnClickListener {
-            startActivity(Intent(this, GoalsActivity::class.java))
-        }
-        findViewById<Button>(R.id.btnDashboard).setOnClickListener {
-            startActivity(Intent(this, DashboardActivity::class.java))
-        }
-        findViewById<Button>(R.id.btnReminders).setOnClickListener {
-            startActivity(Intent(this, ReminderActivity::class.java))
-        }
         findViewById<Button>(R.id.btnVault).setOnClickListener {
             startActivity(Intent(this, DocumentVaultActivity::class.java))
         }
 
+        findViewById<Button>(R.id.btnGoals).setOnClickListener {
+            startActivity(Intent(this, GoalsActivity::class.java))
+        }
 
+        findViewById<Button>(R.id.btnDashboard).setOnClickListener {
+            startActivity(Intent(this, DashboardActivity::class.java))
+        }
 
+        findViewById<Button>(R.id.btnReminders).setOnClickListener {
+            startActivity(Intent(this, ReminderActivity::class.java))
+        }
+
+        findViewById<Button>(R.id.btnFinancialNews).setOnClickListener {
+            startActivity(Intent(this, NewsActivity::class.java))
+        }
     }
 }
