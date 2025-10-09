@@ -2,8 +2,8 @@ package com.example.loginsignupapp
 
 import android.content.Intent
 import android.os.Bundle
-import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
+import com.google.android.material.card.MaterialCardView
 
 class CalculatorMenuActivity : AppCompatActivity() {
 
@@ -11,19 +11,23 @@ class CalculatorMenuActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_calculator_menu)
 
-        val btnEMI = findViewById<Button>(R.id.btnEMICalculator)
-        val btnSIP = findViewById<Button>(R.id.btnSIPCalculator)
-        val btnTax = findViewById<Button>(R.id.btnTaxCalculator)
+        // Linking MaterialCardViews with XML IDs
+        val cardEMI = findViewById<MaterialCardView>(R.id.cardEMI)
+        val cardSIP = findViewById<MaterialCardView>(R.id.cardSIP)
+        val cardTax = findViewById<MaterialCardView>(R.id.cardTax)
 
-        btnEMI.setOnClickListener {
+        // Open EMI Calculator Activity
+        cardEMI.setOnClickListener {
             startActivity(Intent(this, EmiCalculatorActivity::class.java))
         }
 
-        btnSIP.setOnClickListener {
+        // Open SIP Calculator Activity
+        cardSIP.setOnClickListener {
             startActivity(Intent(this, SipCalculatorActivity::class.java))
         }
 
-        btnTax.setOnClickListener {
+        // Open Tax Calculator Activity
+        cardTax.setOnClickListener {
             startActivity(Intent(this, TaxCalculatorActivity::class.java))
         }
     }

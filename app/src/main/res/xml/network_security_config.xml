@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<network-security-config>
+    <domain-config cleartextTrafficPermitted="true">
+        <domain includeSubdomains="true">api.polygon.io</domain>
+        <domain includeSubdomains="true">financialmodelingprep.com</domain>
+        <domain includeSubdomains="true">www.alphavantage.co</domain>
+        <domain includeSubdomains="true">api.twelvedata.com</domain>
+        <domain includeSubdomains="true">data.nasdaq.com</domain>
+    </domain-config>
+</network-security-config>

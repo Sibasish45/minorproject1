@@ -43,7 +43,6 @@
                     android:background="#3F51B5"
                     android:layout_marginTop="8dp"
                     android:alpha="0.8" />
-
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
@@ -126,7 +125,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
                 </LinearLayout>
-
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
@@ -171,7 +169,6 @@
                     app:cornerRadius="16dp"
                     app:elevation="4dp"
                     android:layout_marginStart="6dp" />
-
             </LinearLayout>
 
             <!-- Row 2 -->
@@ -209,7 +206,6 @@
                     app:cornerRadius="16dp"
                     app:elevation="4dp"
                     android:layout_marginStart="6dp" />
-
             </LinearLayout>
 
             <!-- Row 3 -->
@@ -247,10 +243,9 @@
                     app:cornerRadius="16dp"
                     app:elevation="4dp"
                     android:layout_marginStart="6dp" />
-
             </LinearLayout>
 
-            <!-- Single Button Row -->
+            <!-- Expense Reminders Button -->
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnReminders"
                 android:layout_width="match_parent"
@@ -262,9 +257,21 @@
                 app:backgroundTint="#FF5722"
                 app:cornerRadius="16dp"
                 app:elevation="4dp"
+                android:layout_marginBottom="12dp" />
+
+            <!-- New Financial News Button -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnFinancialNews"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:text="Financial News"
+                android:textColor="@android:color/white"
+                android:textSize="16sp"
+                android:fontFamily="sans-serif-medium"
+                app:backgroundTint="#00897B"
+                app:cornerRadius="16dp"
+                app:elevation="4dp"
                 android:layout_marginBottom="20dp" />
-
         </LinearLayout>
-
     </LinearLayout>
 </ScrollView>
