@@ -49,7 +49,6 @@
     <color name="text_primary">#FFFFFFFF</color>
     <color name="text_secondary">#B0BEC5</color>
     <color name="shimmer_color">#1AFFFFFF</color>
-
-
+    <color name="light_gray">#F5F5F5</color>
 
 </resources>

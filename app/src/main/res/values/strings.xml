@@ -53,4 +53,15 @@
 
     <string name="finbot_logo">FinBot Logo</string>
 
+    <string name="sip_title">SIP Calculator</string>
+    <string name="monthly_investment_hint">Monthly Investment (₹)</string>
+    <string name="expected_return_hint">Expected Annual Return (%)</string>
+    <string name="investment_duration_hint">Investment Duration (years)</string>
+    <string name="calculate">Calculate</string>
+
+    <string name="tax_calculator_title">Tax Calculator</string>
+    <string name="enter_annual_income">Enter Annual Income (₹)</string>
+    <string name="enter_deductions">Enter Deductions (₹)</string>
+    <string name="calculate_tax">Calculate Tax</string>
+    <string name="result_placeholder">Result will appear here</string>
 </resources>
