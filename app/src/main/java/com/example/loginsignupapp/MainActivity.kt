@@ -24,7 +24,7 @@ class MainActivity : AppCompatActivity() {
 
         val currentUser = auth.currentUser
         val userEmail = currentUser?.email ?: "User"
-        welcomeText.text = getString(R.string.welcome_message, userEmail)
+        welcomeText.text = getString(R.string.welcome_user, userEmail)
 
         logoutBtn.setOnClickListener {
             auth.signOut()
