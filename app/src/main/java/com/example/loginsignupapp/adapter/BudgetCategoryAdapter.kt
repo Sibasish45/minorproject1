@@ -11,6 +11,7 @@ import androidx.core.graphics.toColorInt
 import androidx.recyclerview.widget.RecyclerView
 import com.example.loginsignupapp.R
 import com.example.loginsignupapp.model.BudgetCategory
+@Suppress("unused")
 
 class BudgetCategoryAdapter(
     private val context: Context,
@@ -36,10 +37,7 @@ class BudgetCategoryAdapter(
         val progress = if (budget.limit > 0) ((budget.spent / budget.limit) * 100).toInt() else 0
         holder.progressBar.progress = progress
 
-        // Use string resource with placeholders
         holder.tvBudgetAmount.text = context.getString(R.string.budget_amount, budget.spent, budget.limit)
-
-        // Use toColorInt for colors
         val color = when {
             progress >= 90 -> Color.RED
             progress >= 70 -> "#FFA500".toColorInt() // Orange

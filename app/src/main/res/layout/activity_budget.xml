@@ -13,7 +13,7 @@
         android:padding="20dp"
         android:paddingBottom="40dp">
 
-        <!-- ===== Header: Budget Management ===== -->
+        <!-- Header Card -->
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -31,7 +31,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Budget Management"
+                    android:text="@string/budget_management"
                     android:textSize="20sp"
                     android:textStyle="bold"
                     android:textColor="@color/black"
@@ -41,7 +41,7 @@
                     android:id="@+id/btnBudget"
                     android:layout_width="match_parent"
                     android:layout_height="56dp"
-                    android:text="Set Budget Limit"
+                    android:text="@string/set_budget_limit"
                     android:textSize="16sp"
                     android:textAllCaps="false"
                     app:cornerRadius="12dp"
@@ -52,7 +52,7 @@
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
 
-        <!-- ===== Expense Input Section ===== -->
+        <!-- Expense Card -->
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -70,17 +70,17 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Add Expense"
+                    android:text="@string/add_expense"
                     android:textSize="18sp"
                     android:textStyle="bold"
                     android:textColor="@color/black"
                     android:layout_marginBottom="16dp" />
 
-                <!-- Amount -->
+                <!-- Amount Input -->
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Amount (₹)"
+                    android:hint="@string/amount_hint"
                     style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
                     android:layout_marginBottom="12dp"
                     app:startIconDrawable="@android:drawable/ic_menu_sort_by_size">
@@ -93,11 +93,11 @@
                         android:textSize="16sp" />
                 </com.google.android.material.textfield.TextInputLayout>
 
-                <!-- Note -->
+                <!-- Note Input -->
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Note / Description"
+                    android:hint="@string/note_hint"
                     style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
                     android:layout_marginBottom="12dp"
                     app:startIconDrawable="@android:drawable/ic_menu_info_details">
@@ -110,11 +110,11 @@
                         android:maxLines="3" />
                 </com.google.android.material.textfield.TextInputLayout>
 
-                <!-- Category -->
+                <!-- Category Spinner -->
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Category"
+                    android:hint="@string/category_hint"
                     style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
                     android:layout_marginBottom="16dp">
 
@@ -125,12 +125,11 @@
                         android:minHeight="56dp" />
                 </com.google.android.material.textfield.TextInputLayout>
 
-                <!-- Add Expense Button -->
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnaddexp"
                     android:layout_width="match_parent"
                     android:layout_height="56dp"
-                    android:text="Add Expense"
+                    android:text="@string/add_expense_button"
                     android:textSize="15sp"
                     android:textAllCaps="false"
                     app:cornerRadius="12dp"
@@ -140,11 +139,11 @@
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
 
-        <!-- ===== Budget Overview Section ===== -->
+        <!-- Budget Overview -->
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Budget Overview"
+            android:text="@string/budget_overview"
             android:textSize="18sp"
             android:textStyle="bold"
             android:textColor="@color/black"
@@ -154,24 +153,22 @@
             android:id="@+id/tvBudgetInfo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Budget: ₹0 | Spent: ₹0 | Remaining: ₹0"
+            android:text="@string/budget_info"
             android:textSize="16sp"
             android:textStyle="bold"
             android:textColor="@color/black"
             android:layout_marginBottom="12dp" />
 
-        <!-- ===== Transaction History Section ===== -->
+        <!-- Transaction History -->
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Transaction History"
+            android:text="@string/transaction_history"
             android:textSize="18sp"
             android:textStyle="bold"
             android:textColor="@color/black"
             android:layout_marginTop="24dp"
             android:layout_marginBottom="12dp" />
-
-
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recordrecycler"
