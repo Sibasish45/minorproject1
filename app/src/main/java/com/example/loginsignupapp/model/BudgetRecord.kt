@@ -1,8 +1,8 @@
 package com.example.loginsignupapp.model
 
 data class BudgetRecord(
-    val amount: Double,
-    val category: String,
-    val isIncome: Boolean,
-    val note: String = ""
+    var amount: Double = 0.0,       // <-- make sure this exists
+    var note: String = "",
+    var category: String = "",
+    var timestamp: Long = 0L
 )

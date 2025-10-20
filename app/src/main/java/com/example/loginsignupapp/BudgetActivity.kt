@@ -8,122 +8,90 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.loginsignupapp.adapter.BudgetCategoryAdapter
 import com.example.loginsignupapp.adapter.BudgetRecordAdapter
-import com.example.loginsignupapp.model.BudgetCategory
+import com.example.loginsignupapp.model.BudgetLimit
 import com.example.loginsignupapp.model.BudgetRecord
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.database.*
 
 class BudgetActivity : AppCompatActivity() {
+
     private lateinit var btnSetBudget: Button
     private lateinit var etAmount: EditText
     private lateinit var etNote: EditText
     private lateinit var spinnerCategory: Spinner
-    private lateinit var btnAddIncome: Button
     private lateinit var btnAddExpense: Button
-    private lateinit var budgetRecyclerView: RecyclerView
     private lateinit var recordRecyclerView: RecyclerView
+    private lateinit var tvBudgetInfo: TextView
 
-    private val budgetList = mutableListOf<BudgetCategory>()
     private val recordList = mutableListOf<BudgetRecord>()
-
-    private lateinit var budgetAdapter: BudgetCategoryAdapter
     private lateinit var recordAdapter: BudgetRecordAdapter
+    private lateinit var budgetLimit: BudgetLimit
 
-    // Firebase
-    private val firestore = FirebaseFirestore.getInstance()
     private val auth = FirebaseAuth.getInstance()
     private val userId: String get() = auth.currentUser?.uid ?: "guest"
+    private val database = FirebaseDatabase.getInstance()
+    private val budgetRef = database.getReference("users/$userId/budget")
+    private val recordsRef = database.getReference("users/$userId/records")
 
     @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_budget)
 
-        // Initialize Views
         btnSetBudget = findViewById(R.id.btnBudget)
         etAmount = findViewById(R.id.etAmount)
         etNote = findViewById(R.id.note)
         spinnerCategory = findViewById(R.id.spincategory)
-        btnAddIncome = findViewById(R.id.btnaddinc)
         btnAddExpense = findViewById(R.id.btnaddexp)
-        budgetRecyclerView = findViewById(R.id.budrecyclerview)
         recordRecyclerView = findViewById(R.id.recordrecycler)
+        tvBudgetInfo = findViewById(R.id.tvBudgetInfo)
 
         // Spinner setup
         val categories = listOf("Food", "Shopping", "Transport", "Other")
-        val spinnerAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, categories)
-        spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        spinnerCategory.adapter = spinnerAdapter
+        spinnerCategory.adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, categories)
+            .apply { setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item) }
 
         // RecyclerView setup
-        budgetAdapter = BudgetCategoryAdapter(this, budgetList)
         recordAdapter = BudgetRecordAdapter(recordList)
-        budgetRecyclerView.layoutManager = LinearLayoutManager(this)
         recordRecyclerView.layoutManager = LinearLayoutManager(this)
-        budgetRecyclerView.adapter = budgetAdapter
         recordRecyclerView.adapter = recordAdapter
 
-        // Load existing data from Firebase
-        loadBudgets()
+        loadBudget()
         loadRecords()
 
-        // Button click listeners
-        btnSetBudget.setOnClickListener {
-            showSetBudgetDialog()
-        }
-
-        btnAddIncome.setOnClickListener {
-            addRecord(isIncome = true)
-        }
-
-        btnAddExpense.setOnClickListener {
-            addRecord(isIncome = false)
-        }
+        btnSetBudget.setOnClickListener { showSetBudgetDialog() }
+        btnAddExpense.setOnClickListener { addExpense() }
     }
 
     private fun showSetBudgetDialog() {
         val builder = AlertDialog.Builder(this)
-        builder.setTitle("Set Budget Limit")
+        builder.setTitle("Set Monthly Budget")
 
         val input = EditText(this)
         input.inputType = InputType.TYPE_CLASS_NUMBER or InputType.TYPE_NUMBER_FLAG_DECIMAL
-        input.hint = "Enter amount (₹)"
+        input.hint = "Enter total budget (₹)"
         builder.setView(input)
 
         builder.setPositiveButton("Set") { dialog, _ ->
-            val selectedCategory = spinnerCategory.selectedItem.toString()
             val amount = input.text.toString().toDoubleOrNull()
             if (amount != null && amount > 0) {
-                val existing = budgetList.find { it.name == selectedCategory }
-                if (existing != null) {
-                    existing.limit = amount
-                    existing.spent = 0.0
-                    updateBudgetInFirestore(existing)
-                } else {
-                    val newBudget = BudgetCategory(selectedCategory, amount, 0.0)
-                    budgetList.add(newBudget)
-                    saveBudgetToFirestore(newBudget)
-                }
-                budgetAdapter.notifyDataSetChanged()
+                budgetLimit = BudgetLimit(limit = amount, spent = 0.0)
+                budgetRef.setValue(budgetLimit)
+                updateBudgetInfo()
             } else {
                 Toast.makeText(this, "Enter a valid amount", Toast.LENGTH_SHORT).show()
             }
             dialog.dismiss()
         }
-
-        builder.setNegativeButton("Cancel") { dialog, _ ->
-            dialog.cancel()
-        }
-
+        builder.setNegativeButton("Cancel") { dialog, _ -> dialog.dismiss() }
         builder.show()
     }
 
-    private fun addRecord(isIncome: Boolean) {
+    private fun addExpense() {
         val amountText = etAmount.text.toString().trim()
         val note = etNote.text.toString().trim()
-        val selectedCategory = spinnerCategory.selectedItem.toString()
+        val category = spinnerCategory.selectedItem.toString()
 
         if (amountText.isEmpty() || note.isEmpty()) {
             Toast.makeText(this, "Please enter all fields", Toast.LENGTH_SHORT).show()
@@ -136,69 +104,54 @@ class BudgetActivity : AppCompatActivity() {
             return
         }
 
-        val record = BudgetRecord(amount, note, isIncome, selectedCategory)
-        recordList.add(0, record)
-        recordAdapter.notifyItemInserted(0)
-        saveRecordToFirestore(record)
+        val record = BudgetRecord(
+            amount = amount,
+            note = note,
+            category = category,
+            timestamp = System.currentTimeMillis()
+        )
+        recordsRef.push().setValue(record)
 
-        // Update spent in budget if it's an expense
-        if (!isIncome) {
-            val budget = budgetList.find { it.name == selectedCategory }
-            if (budget != null) {
-                budget.spent += amount
-                budgetAdapter.notifyDataSetChanged()
-                updateBudgetInFirestore(budget)
-            }
-        }
+        budgetLimit.spent = (budgetLimit.spent ?: 0.0) + amount
+        budgetRef.setValue(budgetLimit)
+        updateBudgetInfo()
 
         etAmount.text.clear()
         etNote.text.clear()
     }
 
-    // ---------------- Firebase Methods ----------------
-
-    private fun saveBudgetToFirestore(budget: BudgetCategory) {
-        firestore.collection("users").document(userId)
-            .collection("budgets").document(budget.name)
-            .set(budget)
-    }
-
-    private fun updateBudgetInFirestore(budget: BudgetCategory) {
-        firestore.collection("users").document(userId)
-            .collection("budgets").document(budget.name)
-            .set(budget)
-    }
-
-    private fun saveRecordToFirestore(record: BudgetRecord) {
-        firestore.collection("users").document(userId)
-            .collection("records").add(record)
-    }
-
-    private fun loadBudgets() {
-        firestore.collection("users").document(userId)
-            .collection("budgets")
-            .get()
-            .addOnSuccessListener { snapshot ->
-                budgetList.clear()
-                for (doc in snapshot) {
-                    val budget = doc.toObject(BudgetCategory::class.java)
-                    budgetList.add(budget)
-                }
-                budgetAdapter.notifyDataSetChanged()
+    private fun loadBudget() {
+        budgetRef.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                budgetLimit = snapshot.getValue(BudgetLimit::class.java) ?: BudgetLimit()
+                updateBudgetInfo()
             }
+            override fun onCancelled(error: DatabaseError) {
+                Toast.makeText(this@BudgetActivity, "Failed to load budget", Toast.LENGTH_SHORT).show()
+            }
+        })
     }
 
     private fun loadRecords() {
-        firestore.collection("users").document(userId)
-            .collection("records")
-            .get()
-            .addOnSuccessListener { snapshot ->
+        recordsRef.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
                 recordList.clear()
-                for (doc in snapshot) {
-                    val record = doc.toObject(BudgetRecord::class.java)
-                    recordList.add(0, record)
+                for (child in snapshot.children) {
+                    val record = child.getValue(BudgetRecord::class.java)
+                    if (record != null) recordList.add(0, record)
                 }
                 recordAdapter.notifyDataSetChanged()
             }
+            override fun onCancelled(error: DatabaseError) {
+                Toast.makeText(this@BudgetActivity, "Failed to load records", Toast.LENGTH_SHORT).show()
+            }
+        })
+    }
+
+    private fun updateBudgetInfo() {
+        val spent = budgetLimit.spent ?: 0.0
+        val limit = budgetLimit.limit ?: 0.0
+        val remaining = limit - spent
+        tvBudgetInfo.text = "Budget: ₹$limit | Spent: ₹$spent | Remaining: ₹$remaining"
     }
 }

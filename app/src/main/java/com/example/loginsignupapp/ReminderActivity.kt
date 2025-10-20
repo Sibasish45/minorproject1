@@ -33,17 +33,14 @@ class ReminderActivity : AppCompatActivity() {
 
         firebaseAuth = FirebaseAuth.getInstance()
 
-        // Open calendar when date field is clicked
         etDate.setOnClickListener {
             showDatePicker()
         }
 
-        // Save reminder to Firebase and trigger notification
         btnSave.setOnClickListener {
             saveReminder()
         }
 
-        // View all reminders
         btnView.setOnClickListener {
             startActivity(Intent(this, ReminderListActivity::class.java))
         }
