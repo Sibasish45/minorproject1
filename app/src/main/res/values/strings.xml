@@ -64,4 +64,9 @@
     <string name="enter_deductions">Enter Deductions (₹)</string>
     <string name="calculate_tax">Calculate Tax</string>
     <string name="result_placeholder">Result will appear here</string>
+    <string name="expense_category">Food</string>
+    <string name="expense_note">Bought groceries</string>
+    <string name="expense_amount">₹500</string>
+    <string name="budget_amount">₹%1$.2f / ₹%2$.2f</string>
+
 </resources>
