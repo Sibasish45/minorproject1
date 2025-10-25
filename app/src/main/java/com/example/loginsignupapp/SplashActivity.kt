@@ -12,7 +12,7 @@ class SplashActivity : AppCompatActivity() {
         setContentView(R.layout.activity_splash)
 
         val videoView = findViewById<VideoView>(R.id.videoView)
-        val videoUri = Uri.parse("android.resource://${packageName}/${R.raw.splash_video}")
+        val videoUri = Uri.parse("android.resource://${packageName}/${R.raw.splash2}")
         videoView.setVideoURI(videoUri)
 
         videoView.setOnCompletionListener {

@@ -1,72 +1,90 @@
 package com.example.loginsignupapp
 
-import android.graphics.Color
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.example.loginsignupapp.databinding.ActivityDashboardBinding
-import com.github.mikephil.charting.charts.BarChart
-import com.github.mikephil.charting.charts.PieChart
-import com.github.mikephil.charting.data.*
-import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.*
 
 class DashboardActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityDashboardBinding
+    private lateinit var auth: FirebaseAuth
+    private lateinit var dbRef: DatabaseReference
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityDashboardBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        setupPieChart()
-        setupBarChart()
+        auth = FirebaseAuth.getInstance()
+        dbRef = FirebaseDatabase.getInstance().reference
+
+        val currentUser = auth.currentUser
+        if (currentUser != null) {
+            binding.tvWelcome.text = "Welcome, ${currentUser.displayName ?: "User"}"
+            binding.tvEmail.text = currentUser.email
+            loadBudgetData(currentUser.uid)
+            loadReminderData(currentUser.uid)
+        } else {
+            binding.tvWelcome.text = "Welcome, Guest"
+            binding.tvEmail.text = ""
+        }
     }
 
-    private fun setupPieChart() {
-        val pieChart = binding.pieChart
+    /** Load Budget Info from BudgetActivity data **/
+    private fun loadBudgetData(userId: String) {
+        val budgetRef = dbRef.child("users").child(userId).child("budget")
 
-        val entries = listOf(
-            PieEntry(6500f, "Income"),
-            PieEntry(4200f, "Expenses")
-        )
+        budgetRef.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                val limit = snapshot.child("limit").getValue(Double::class.java) ?: 0.0
+                val spent = snapshot.child("spent").getValue(Double::class.java) ?: 0.0
 
-        val dataSet = PieDataSet(entries, "")
-        dataSet.colors = listOf(Color.BLUE, Color.GREEN)
-        dataSet.valueTextSize = 16f
+                if (limit > 0) {
+                    val percent = ((spent / limit) * 100).toInt()
+                    binding.tvBudgetUsed.text = "₹${spent.toInt()} of ₹${limit.toInt()} used"
+                    binding.progressBudget.progress = percent
+                } else {
+                    binding.tvBudgetUsed.text = "No budget data available"
+                    binding.progressBudget.progress = 0
+                }
+            }
 
-        val data = PieData(dataSet)
-        pieChart.data = data
-        pieChart.description.isEnabled = false
-        pieChart.centerText = "₹10,700"
-        pieChart.animateY(1000)
-        pieChart.invalidate()
+            override fun onCancelled(error: DatabaseError) {
+                binding.tvBudgetUsed.text = "Error loading budget"
+            }
+        })
     }
 
-    private fun setupBarChart() {
-        val barChart = binding.barChart
+    /** Load Reminder Info **/
+    private fun loadReminderData(userId: String) {
+        val reminderRef = dbRef.child("users").child(userId).child("reminders")
 
-        val entries = listOf(
-            BarEntry(0f, 3000f), // Jun
-            BarEntry(1f, 5000f), // Jul
-            BarEntry(2f, 4200f)  // Aug
-        )
+        reminderRef.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                var completed = 0
+                var pending = 0
 
-        val dataSet = BarDataSet(entries, "Income & Expenses")
-        dataSet.colors = listOf(Color.BLUE, Color.GREEN)
-        dataSet.valueTextSize = 14f
+                for (data in snapshot.children) {
+                    val status = data.child("status").getValue(String::class.java)
+                    if (status == "completed") completed++ else pending++
+                }
 
-        val barData = BarData(dataSet)
-        barChart.data = barData
+                val total = completed + pending
+                if (total > 0) {
+                    val percent = (completed.toFloat() / total * 100).toInt()
+                    binding.tvRemindersStatus.text = "$completed Completed • $pending Pending"
+                    binding.progressReminders.progress = percent
+                } else {
+                    binding.tvRemindersStatus.text = "No reminders found"
+                    binding.progressReminders.progress = 0
+                }
+            }
 
-        val months = listOf("Jun", "Jul", "Aug")
-        barChart.xAxis.valueFormatter = IndexAxisValueFormatter(months)
-        barChart.xAxis.granularity = 1f
-        barChart.xAxis.setDrawGridLines(false)
-        barChart.axisLeft.setDrawGridLines(false)
-        barChart.axisRight.isEnabled = false
-
-        barChart.description.isEnabled = false
-        barChart.animateY(1000)
-        barChart.invalidate()
+            override fun onCancelled(error: DatabaseError) {
+                binding.tvRemindersStatus.text = "Error loading reminders"
+            }
+        })
     }
 }

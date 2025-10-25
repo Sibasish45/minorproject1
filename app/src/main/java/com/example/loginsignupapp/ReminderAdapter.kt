@@ -15,8 +15,9 @@ class ReminderAdapter(
         fun onEdit(reminder: ReminderModel)
     }
 
-    inner class ReminderViewHolder(val binding: ItemReminderBinding) :
+    inner class ReminderViewHolder(private val binding: ItemReminderBinding) :
         RecyclerView.ViewHolder(binding.root) {
+
         fun bind(reminder: ReminderModel) {
             binding.tvTitle.text = reminder.title
             binding.tvAmount.text = "₹ ${reminder.amount}"
@@ -41,5 +42,5 @@ class ReminderAdapter(
         holder.bind(reminders[position])
     }
 
-    override fun getItemCount() = reminders.size
+    override fun getItemCount(): Int = reminders.size
 }
