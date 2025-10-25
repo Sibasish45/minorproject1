@@ -22,7 +22,6 @@ class NewsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_news)
 
-        // Initialize ViewModel
         val factory = NewsViewModelFactory(this)
         viewModel = ViewModelProvider(this, factory).get(NewsViewModel::class.java)
 
@@ -38,10 +37,8 @@ class NewsActivity : AppCompatActivity() {
             layoutManager = LinearLayoutManager(this@NewsActivity)
             adapter = this@NewsActivity.adapter
 
-            // Add item spacing
             addItemDecoration(SpaceItemDecoration(16))
 
-            // Show FAB when scrolled down
             addOnScrollListener(object : RecyclerView.OnScrollListener() {
                 override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                     super.onScrolled(recyclerView, dx, dy)

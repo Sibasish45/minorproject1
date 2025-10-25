@@ -1,41 +1,50 @@
 package com.example.loginsignupapp.adapter
 
 import android.content.Context
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
 import android.widget.TextView
-import androidx.core.content.ContextCompat
+import androidx.core.graphics.toColorInt
 import androidx.recyclerview.widget.RecyclerView
 import com.example.loginsignupapp.R
 import com.example.loginsignupapp.model.BudgetCategory
+@Suppress("unused")
 
 class BudgetCategoryAdapter(
     private val context: Context,
-    private val categories: List<BudgetCategory>
+    private val budgetList: List<BudgetCategory>
 ) : RecyclerView.Adapter<BudgetCategoryAdapter.BudgetViewHolder>() {
 
     inner class BudgetViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val tvCategoryName: TextView = itemView.findViewById(R.id.tvCategoryName)
-        val tvSpentAmount: TextView = itemView.findViewById(R.id.tvSpentAmount)
-        val progressBar: ProgressBar = itemView.findViewById(R.id.categoryProgressBar)
-        val tvBudgetAlert: TextView = itemView.findViewById(R.id.tvBudgetAlert)
+        val tvBudgetAmount: TextView = itemView.findViewById(R.id.tvBudgetAmount)
+        val progressBar: ProgressBar = itemView.findViewById(R.id.progressBar)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BudgetViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_budget, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.budget_item, parent, false)
         return BudgetViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: BudgetViewHolder, position: Int) {
-        val category = categories[position]
-        holder.tvCategoryName.text = category.name
-        holder.tvSpentAmount.text = "₹${category.spent} / ₹${category.limit}"
-        holder.progressBar.progress = category.percentageSpent
-        holder.progressBar.progressDrawable.setTint(ContextCompat.getColor(context, category.statusColor))
-        holder.tvBudgetAlert.text = category.alertMessage
+        val budget = budgetList[position]
+
+        holder.tvCategoryName.text = budget.name
+
+        val progress = if (budget.limit > 0) ((budget.spent / budget.limit) * 100).toInt() else 0
+        holder.progressBar.progress = progress
+
+        holder.tvBudgetAmount.text = context.getString(R.string.budget_amount, budget.spent, budget.limit)
+        val color = when {
+            progress >= 90 -> Color.RED
+            progress >= 70 -> "#FFA500".toColorInt() // Orange
+            else -> "#4CAF50".toColorInt() // Green
+        }
+        holder.progressBar.progressDrawable.setTint(color)
     }
 
-    override fun getItemCount(): Int = categories.size
+    override fun getItemCount(): Int = budgetList.size
 }

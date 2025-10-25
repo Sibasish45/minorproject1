@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">FinBot</string>
-    <string name="welcome_user">Welcome, User</string>
+    <string name="welcome_user">Welcome, %1$s!</string>
     <string name="logout">Logout</string>
     <string name="sign_up">Sign Up</string>
     <string name="email">Email</string>
@@ -41,16 +41,41 @@
     <string name="type_your_message">Type a message</string>
     <string name="chat_scroll_desc">Chat messages</string>
     <string name="chat_messages">Chat messages</string>
-    <string name="type_message">Type a message...</string>
+    <string name="type_message">Type a message</string>
     <string name="send_message">Send Message</string>
     <string name="add_document">Add Document</string>
 
 
     <string name="app_tagline">Your Smart Financial Advisor</string>
     <string name="app_logo">App Logo</string>
-    <string name="loading_text">Loading your financial dashboard...</string>
+    <string name="loading_text">Loading your financial dashboard</string>
     <string name="app_version">Version 1.0.0</string>
 
     <string name="finbot_logo">FinBot Logo</string>
 
+    <string name="sip_title">SIP Calculator</string>
+    <string name="monthly_investment_hint">Monthly Investment (₹)</string>
+    <string name="expected_return_hint">Expected Annual Return (%)</string>
+    <string name="investment_duration_hint">Investment Duration (years)</string>
+    <string name="calculate">Calculate</string>
+
+    <string name="tax_calculator_title">Tax Calculator</string>
+    <string name="enter_annual_income">Enter Annual Income (₹)</string>
+    <string name="enter_deductions">Enter Deductions (₹)</string>
+    <string name="calculate_tax">Calculate Tax</string>
+    <string name="result_placeholder">Result will appear here</string>
+    <string name="expense_category">Food</string>
+    <string name="expense_note">Bought groceries</string>
+    <string name="expense_amount">₹500</string>
+    <string name="budget_amount">₹%1$.2f / ₹%2$.2f</string>
+
+    <!-- activity_budget -->
+    <string name="budget_management">Budget Management</string>
+    <string name="set_budget_limit">Set Budget Limit</string>
+    <string name="note_hint">Note / Description</string>
+    <string name="category_hint">Category</string>
+    <string name="add_expense_button">Add Expense</string>
+    <string name="budget_overview">Budget Overview</string>
+    <string name="budget_info">Budget: ₹0 | Spent: ₹0 | Remaining: ₹0</string>
+    <string name="transaction_history">Transaction History</string>
 </resources>

@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/scrollView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/bg"
@@ -14,7 +13,7 @@
         android:padding="20dp"
         android:paddingBottom="40dp">
 
-        <!-- Header Card with Budget Button -->
+        <!-- Header Card -->
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -32,7 +31,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Budget Management"
+                    android:text="@string/budget_management"
                     android:textSize="20sp"
                     android:textStyle="bold"
                     android:textColor="@color/black"
@@ -42,7 +41,7 @@
                     android:id="@+id/btnBudget"
                     android:layout_width="match_parent"
                     android:layout_height="56dp"
-                    android:text="Set Budget Limit"
+                    android:text="@string/set_budget_limit"
                     android:textSize="16sp"
                     android:textAllCaps="false"
                     app:cornerRadius="12dp"
@@ -50,11 +49,10 @@
                     app:iconGravity="textStart"
                     app:iconPadding="8dp"
                     style="@style/Widget.Material3.Button.TonalButton" />
-
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
 
-        <!-- Transaction Input Card -->
+        <!-- Expense Card -->
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -72,7 +70,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Add Transaction"
+                    android:text="@string/add_expense"
                     android:textSize="18sp"
                     android:textStyle="bold"
                     android:textColor="@color/black"
@@ -82,14 +80,10 @@
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Amount (₹)"
+                    android:hint="@string/amount_hint"
                     style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
-                    app:boxCornerRadiusTopStart="12dp"
-                    app:boxCornerRadiusTopEnd="12dp"
-                    app:boxCornerRadiusBottomStart="12dp"
-                    app:boxCornerRadiusBottomEnd="12dp"
-                    app:startIconDrawable="@android:drawable/ic_menu_sort_by_size"
-                    android:layout_marginBottom="12dp">
+                    android:layout_marginBottom="12dp"
+                    app:startIconDrawable="@android:drawable/ic_menu_sort_by_size">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/etAmount"
@@ -103,14 +97,10 @@
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Note / Description"
+                    android:hint="@string/note_hint"
                     style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
-                    app:boxCornerRadiusTopStart="12dp"
-                    app:boxCornerRadiusTopEnd="12dp"
-                    app:boxCornerRadiusBottomStart="12dp"
-                    app:boxCornerRadiusBottomEnd="12dp"
-                    app:startIconDrawable="@android:drawable/ic_menu_info_details"
-                    android:layout_marginBottom="12dp">
+                    android:layout_marginBottom="12dp"
+                    app:startIconDrawable="@android:drawable/ic_menu_info_details">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/note"
@@ -124,12 +114,8 @@
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Category"
+                    android:hint="@string/category_hint"
                     style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
-                    app:boxCornerRadiusTopStart="12dp"
-                    app:boxCornerRadiusTopEnd="12dp"
-                    app:boxCornerRadiusBottomStart="12dp"
-                    app:boxCornerRadiusBottomEnd="12dp"
                     android:layout_marginBottom="16dp">
 
                     <Spinner
@@ -139,125 +125,57 @@
                         android:minHeight="56dp" />
                 </com.google.android.material.textfield.TextInputLayout>
 
-                <!-- Action Buttons -->
-                <LinearLayout
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnaddexp"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:weightSum="2">
-
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/btnaddinc"
-                        android:layout_width="0dp"
-                        android:layout_height="56dp"
-                        android:layout_weight="1"
-                        android:text="Add Income"
-                        android:textSize="15sp"
-                        android:textAllCaps="false"
-                        app:cornerRadius="12dp"
-                        app:icon="@android:drawable/arrow_down_float"
-                        app:iconGravity="textStart"
-                        app:iconTint="@android:color/holo_green_dark"
-                        android:layout_marginEnd="6dp"
-                        style="@style/Widget.Material3.Button.OutlinedButton" />
-
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/btnaddexp"
-                        android:layout_width="0dp"
-                        android:layout_height="56dp"
-                        android:layout_weight="1"
-                        android:text="Add Expense"
-                        android:textSize="15sp"
-                        android:textAllCaps="false"
-                        app:cornerRadius="12dp"
-                        app:icon="@android:drawable/arrow_up_float"
-                        app:iconGravity="textStart"
-                        app:iconTint="@android:color/holo_red_dark"
-                        android:layout_marginStart="6dp"
-                        style="@style/Widget.Material3.Button" />
-                </LinearLayout>
-
+                    android:layout_height="56dp"
+                    android:text="@string/add_expense_button"
+                    android:textSize="15sp"
+                    android:textAllCaps="false"
+                    app:cornerRadius="12dp"
+                    app:icon="@android:drawable/arrow_up_float"
+                    app:iconGravity="textStart"
+                    app:iconTint="@android:color/holo_red_dark"/>
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
 
-        <!-- Budget Overview Section -->
-        <LinearLayout
+        <!-- Budget Overview -->
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginBottom="24dp">
+            android:text="@string/budget_overview"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:layout_marginBottom="12dp" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center_vertical"
-                android:layout_marginBottom="12dp">
-
-                <View
-                    android:layout_width="4dp"
-                    android:layout_height="24dp"
-                    android:background="@color/black"
-                    android:layout_marginEnd="8dp" />
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Your Budgets"
-                    android:textStyle="bold"
-                    android:textSize="18sp"
-                    android:textColor="@color/black" />
-
-            </LinearLayout>
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/budrecyclerview"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:clipToPadding="false"
-                android:paddingTop="4dp"
-                android:paddingBottom="4dp" />
-        </LinearLayout>
-
-        <!-- Transaction History Section -->
-        <LinearLayout
+        <TextView
+            android:id="@+id/tvBudgetInfo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:text="@string/budget_info"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:layout_marginBottom="12dp" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center_vertical"
-                android:layout_marginBottom="12dp">
+        <!-- Transaction History -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/transaction_history"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:layout_marginTop="24dp"
+            android:layout_marginBottom="12dp" />
 
-                <View
-                    android:layout_width="4dp"
-                    android:layout_height="24dp"
-                    android:background="@color/black"
-                    android:layout_marginEnd="8dp" />
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Transaction History"
-                    android:textStyle="bold"
-                    android:textSize="18sp"
-                    android:textColor="@color/black" />
-
-            </LinearLayout>
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recordrecycler"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:clipToPadding="false"
-                android:paddingTop="4dp"
-                android:paddingBottom="4dp" />
-        </LinearLayout>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recordrecycler"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clipToPadding="false"
+            android:paddingBottom="16dp" />
 
     </LinearLayout>
 </ScrollView>

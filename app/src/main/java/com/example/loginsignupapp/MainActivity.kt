@@ -1,4 +1,4 @@
-package com.example.loginsignupapp  // ✅ Replace with your actual package name if different
+package com.example.loginsignupapp
 
 import android.content.Intent
 import android.os.Bundle
@@ -18,13 +18,12 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         auth = FirebaseAuth.getInstance()
-
         logoutBtn = findViewById(R.id.logoutBtn)
         welcomeText = findViewById(R.id.welcomeText)
 
         val currentUser = auth.currentUser
         val userEmail = currentUser?.email ?: "User"
-        welcomeText.text = getString(R.string.welcome_message, userEmail)
+        welcomeText.text = getString(R.string.welcome_user, userEmail)
 
         logoutBtn.setOnClickListener {
             auth.signOut()
